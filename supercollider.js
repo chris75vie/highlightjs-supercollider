@@ -6,9 +6,8 @@ Contributors: Brian Heim <brianlheim@gmail.com>
 Category: audio, music, scripting, research
 Description: SuperCollider is a language for audio synthesis and algorithmic composition.
 */
-var module = module ? module : {}; // shim for browser use
 
-function hljsDefineSuperCollider(hljs) {
+hljs.registerLanguage("supercollider", (function(hljs) {
   var KEYWORDS = {
     keyword: "arg classvar|10 const super this var|2",
     built_in:
@@ -55,7 +54,7 @@ function hljsDefineSuperCollider(hljs) {
   var SYMBOL_SELECTOR_RE = "[A-Za-z_]\\w*\\:";
 
   var BLOCK_COMMENT = hljs.C_BLOCK_COMMENT_MODE;
-  BLOCK_COMMENT.contains.push("self"); // block comments in SC are nested
+  // BLOCK_COMMENT.contains.push("self"); // block comments in SC are nested
 
   return {
     aliases: ["supercollider", "sc"],
@@ -88,10 +87,4 @@ function hljsDefineSuperCollider(hljs) {
     // avoid common confusions: we don't declare classes with "class Aaa"
     illegal: /\bclass\s+[A-Z]/
   };
-}
-
-module.exports = function(hljs) {
-  hljs.registerLanguage("supercollider", hljsDefineSuperCollider);
-};
-
-module.exports.definer = hljsDefineSuperCollider;
+}));
